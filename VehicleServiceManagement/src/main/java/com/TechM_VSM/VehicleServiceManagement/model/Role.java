@@ -1,4 +1,4 @@
-package com.TechM_VSM.VehicleServiceManagement.Model;
+package com.TechM_VSM.VehicleServiceManagement.model;
 
 public enum Role {
 

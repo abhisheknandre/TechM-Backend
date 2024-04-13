@@ -1,10 +1,10 @@
-package com.TechM_VSM.VehicleServiceManagement.Model;
+package com.TechM_VSM.VehicleServiceManagement.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import org.springframework.context.annotation.Primary;
+
 @Entity
 public class User {
 

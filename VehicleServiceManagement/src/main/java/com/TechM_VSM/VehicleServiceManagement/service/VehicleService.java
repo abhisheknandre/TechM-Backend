@@ -1,6 +1,6 @@
 package com.TechM_VSM.VehicleServiceManagement.service;
 
-import com.TechM_VSM.VehicleServiceManagement.Model.Vehicle;
+import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
 
 import java.util.List;
 

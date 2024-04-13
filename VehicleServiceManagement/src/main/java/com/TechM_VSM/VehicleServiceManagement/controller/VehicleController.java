@@ -1,6 +1,6 @@
 package com.TechM_VSM.VehicleServiceManagement.controller;
 
-import com.TechM_VSM.VehicleServiceManagement.Model.Vehicle;
+import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.TechM_VSM.VehicleServiceManagement.service.VehicleService;
