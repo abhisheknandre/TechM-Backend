@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int v_id;
+    private int id;
     private int c_id;
     private String name;
     private int year;
@@ -21,12 +21,12 @@ public class Vehicle {
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public int getV_id() {
-        return v_id;
+    public int getid() {
+        return id;
     }
 
-    public void setV_id(int v_id) {
-        this.v_id = v_id;
+    public void setid(int v_id) {
+        this.id = id;
     }
 
     public int getC_id() {
