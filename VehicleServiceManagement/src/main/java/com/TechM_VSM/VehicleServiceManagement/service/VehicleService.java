@@ -1,13 +1,14 @@
 package com.TechM_VSM.VehicleServiceManagement.service;
 
 import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface VehicleService {
+    
+    ResponseEntity<String> saveVehicle(Vehicle vehicle);
 
 
-    public Vehicle saveVehicle(Vehicle vehicle);
-
-    public List<Vehicle> getAllVehical();
+    ResponseEntity<List<Vehicle>> getAllVehical();
 }

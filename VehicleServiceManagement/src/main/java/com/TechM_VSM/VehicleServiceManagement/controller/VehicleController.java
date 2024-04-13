@@ -2,6 +2,8 @@ package com.TechM_VSM.VehicleServiceManagement.controller;
 
 import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.TechM_VSM.VehicleServiceManagement.service.VehicleService;
 
@@ -11,13 +13,14 @@ import java.util.List;
 @RequestMapping("/vehicle")
 @CrossOrigin
 public class VehicleController {
-
     @Autowired
     private VehicleService vehicleService;
-
     @PostMapping("/add")
-    public Vehicle add(@RequestBody Vehicle vehicle){return vehicleService.saveVehicle(vehicle);}
-
+    public ResponseEntity<String> addVehicle(@RequestBody Vehicle vehicle) {
+        return vehicleService.saveVehicle(vehicle);
+    }
     @GetMapping("/getAll")
-    public List<Vehicle> list(){return vehicleService.getAllVehical();}
+    public ResponseEntity<List<Vehicle>> getAllVehicles() {
+        return vehicleService.getAllVehical();
+    }
 }
