@@ -18,7 +18,6 @@ public class VehicleServiceImpl implements VehicleService{
     public ResponseEntity<String> saveVehicle(Vehicle vehicle) {
              vehicleRepository.save(vehicle);
              return new ResponseEntity<>("success", HttpStatus.CREATED);
-
     }
 
     @Override
