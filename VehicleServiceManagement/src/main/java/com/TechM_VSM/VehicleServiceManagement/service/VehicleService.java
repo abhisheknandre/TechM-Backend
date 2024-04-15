@@ -1,5 +1,6 @@
 package com.TechM_VSM.VehicleServiceManagement.service;
 
+import com.TechM_VSM.VehicleServiceManagement.dto.VehicleDto;
 import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
 import org.springframework.http.ResponseEntity;
 
@@ -8,15 +9,15 @@ import java.util.Map;
 
 public interface VehicleService {
     
-    public ResponseEntity<String> saveVehicle(Vehicle vehicle);
+    public VehicleDto saveVehicle(VehicleDto vehicleDto);
 
 
     public ResponseEntity<List<Vehicle>> getAllVehical();
 
-    public ResponseEntity<Vehicle> getQuestionById(int id);
+    public ResponseEntity<Vehicle> getvehicleById(int id);
 
 
-    public ResponseEntity<Vehicle> updateVehicle(int id, Vehicle vehicleDetails);
+    public Vehicle updateVehicle(int id, VehicleDto vehicleDetails);
 
     public Map<String, Boolean> deleteVehicle(int id);
 }

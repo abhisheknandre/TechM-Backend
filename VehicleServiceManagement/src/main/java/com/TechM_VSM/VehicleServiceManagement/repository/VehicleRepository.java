@@ -1,5 +1,6 @@
 package com.TechM_VSM.VehicleServiceManagement.repository;
 
+import com.TechM_VSM.VehicleServiceManagement.dto.VehicleDto;
 import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface VehicleRepository extends JpaRepository<Vehicle,Integer> {
 
     Vehicle findByid(int id);
+
 }

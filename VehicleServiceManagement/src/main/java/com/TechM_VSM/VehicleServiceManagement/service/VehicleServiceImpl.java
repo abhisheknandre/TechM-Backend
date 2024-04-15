@@ -1,5 +1,7 @@
 package com.TechM_VSM.VehicleServiceManagement.service;
 
+import com.TechM_VSM.VehicleServiceManagement.dto.VehicleDto;
+import com.TechM_VSM.VehicleServiceManagement.model.ServiceStatus;
 import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +17,21 @@ public class VehicleServiceImpl implements VehicleService{
     private VehicleRepository vehicleRepository;
 
     @Override
-    public ResponseEntity<String> saveVehicle(Vehicle vehicle) {
-             vehicleRepository.save(vehicle);
-             return new ResponseEntity<>("success", HttpStatus.CREATED);
+    public VehicleDto saveVehicle(VehicleDto vehicleDto) {
+        Vehicle newvehical = new Vehicle();
+
+        newvehical.setOwnerId(vehicleDto.getOwnerId());
+        newvehical.setName(vehicleDto.getName());
+        newvehical.setYear(vehicleDto.getYear());
+        newvehical.setLicensePlate(vehicleDto.getLicensePlate());
+        newvehical.setServiceStatus(vehicleDto.getServiceStatus() != null ? vehicleDto.getServiceStatus() : ServiceStatus.Pending);
+        newvehical.setRegistrationDate(new Date());
+        Vehicle createdvehicle = vehicleRepository.save(newvehical);
+        VehicleDto vehicleDto1 = new VehicleDto();
+        vehicleDto1.setId(createdvehicle.getId());
+        return vehicleDto1;
     }
+
 
     @Override
     public ResponseEntity<List<Vehicle>> getAllVehical() {
@@ -26,23 +39,23 @@ public class VehicleServiceImpl implements VehicleService{
     }
 
     @Override
-    public ResponseEntity<Vehicle> getQuestionById(int id) {
+    public ResponseEntity<Vehicle> getvehicleById(int id) {
         Optional<Vehicle> vehicle = vehicleRepository.findById(id);
 
         return new ResponseEntity<>(vehicle.get(),HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Vehicle> updateVehicle(int id, Vehicle vehicleDetails) {
+    public Vehicle updateVehicle(int id, VehicleDto vehicleDetails) {
         Vehicle vehicle = vehicleRepository.findByid(id);
 
-        vehicle.setC_id(vehicleDetails.getC_id());
+        vehicle.setOwnerId(vehicleDetails.getOwnerId());
         vehicle.setName(vehicleDetails.getName());
         vehicle.setYear(vehicleDetails.getYear());
-        vehicle.setLicense_plate(vehicleDetails.getLicense_plate());
+        vehicle.setLicensePlate(vehicleDetails.getLicensePlate());
 
         Vehicle updatedVehicle = vehicleRepository.save(vehicle);
-        return ResponseEntity.ok(updatedVehicle);
+        return updatedVehicle;
     }
 
     @Override

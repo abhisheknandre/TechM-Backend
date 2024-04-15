@@ -1,4 +1,11 @@
 package com.TechM_VSM.VehicleServiceManagement.model;
 
-public class ServiceStatus {
+import lombok.Data;
+
+public enum ServiceStatus {
+    Pending,
+    Scheduled,
+    InProgress,
+    Completed;
+
 }

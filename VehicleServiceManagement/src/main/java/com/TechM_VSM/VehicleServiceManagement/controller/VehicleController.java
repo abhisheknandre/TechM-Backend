@@ -1,5 +1,7 @@
 package com.TechM_VSM.VehicleServiceManagement.controller;
 
+import com.TechM_VSM.VehicleServiceManagement.dto.UserDto;
+import com.TechM_VSM.VehicleServiceManagement.dto.VehicleDto;
 import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +19,10 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
     @PostMapping("/add")
-    public ResponseEntity<String> addVehicle(@RequestBody Vehicle vehicle) {
-        return vehicleService.saveVehicle(vehicle);
+    public ResponseEntity<?> addVehicle(@RequestBody VehicleDto vehicleDto) {
+        VehicleDto createdVechicalDto = vehicleService.saveVehicle(vehicleDto);
+        if(createdVechicalDto == null) return new ResponseEntity<>("Vehical not created",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(createdVechicalDto, HttpStatus.CREATED);
     }
     @GetMapping("/getAll")
     public ResponseEntity<List<Vehicle>> getAllVehicles() {
@@ -27,12 +31,14 @@ public class VehicleController {
 
     @GetMapping("getById/{id}")
     public ResponseEntity<Vehicle> getById(@PathVariable int id){
-        return vehicleService.getQuestionById(id);
+        return vehicleService.getvehicleById(id);
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<Vehicle> updateVehicle(@PathVariable int id,@RequestBody Vehicle vehicleDetails){
-        return vehicleService.updateVehicle(id, vehicleDetails);
+    public ResponseEntity<?> updateVehicle(@PathVariable int id,@RequestBody VehicleDto vehicleDetails){
+        Vehicle updateVehicleDto = vehicleService.updateVehicle(id, vehicleDetails);
+        if(updateVehicleDto == null) return new ResponseEntity<>("Vehical not updated",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(updateVehicleDto, HttpStatus.CREATED);
     }
 
     @DeleteMapping("delete/{id}")
