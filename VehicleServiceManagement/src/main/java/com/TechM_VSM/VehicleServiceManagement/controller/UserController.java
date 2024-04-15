@@ -18,11 +18,16 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> add(@RequestBody SignupRequest signupRequest){
-        if(userService.hasUserwithEmail(signupRequest.getEmail()))
-            return new ResponseEntity<>("Customer already exists with this email !",HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity<?> add(@RequestBody SignupRequest signupRequest) {
+        if (userService.hasUserwithEmail(signupRequest.getEmail())) {
+            return new ResponseEntity<>("Customer already exists with this email!", HttpStatus.CONFLICT);
+        }
+
         UserDto createdUserDto = userService.saveUser(signupRequest);
-        if(createdUserDto == null) return new ResponseEntity<>("Customer not created",HttpStatus.BAD_REQUEST);
+        if (createdUserDto == null) {
+            return new ResponseEntity<>("Customer not created", HttpStatus.BAD_REQUEST);
+        }
+
         return new ResponseEntity<>(createdUserDto, HttpStatus.CREATED);
     }
 
