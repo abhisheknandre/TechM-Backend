@@ -6,6 +6,6 @@ import lombok.Data;
 public class OwnerDto {
     private int ownerId;
     private  String oName;
-    private  String ONo;
+    private  String oNo;
     private  String oEmail;
 }

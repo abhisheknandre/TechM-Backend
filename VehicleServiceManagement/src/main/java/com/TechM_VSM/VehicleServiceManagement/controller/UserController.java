@@ -1,9 +1,7 @@
 package com.TechM_VSM.VehicleServiceManagement.controller;
 
-import com.TechM_VSM.VehicleServiceManagement.dto.AuthenticationRequest;
-import com.TechM_VSM.VehicleServiceManagement.dto.AuthenticationResponse;
-import com.TechM_VSM.VehicleServiceManagement.dto.SignupRequest;
-import com.TechM_VSM.VehicleServiceManagement.dto.UserDto;
+import com.TechM_VSM.VehicleServiceManagement.dto.*;
+import com.TechM_VSM.VehicleServiceManagement.model.Role;
 import com.TechM_VSM.VehicleServiceManagement.model.User;
 import com.TechM_VSM.VehicleServiceManagement.repository.UserRepository;
 import com.TechM_VSM.VehicleServiceManagement.security.JWTHelper;
@@ -17,7 +15,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -37,6 +37,20 @@ public class UserController {
         this.jwtUtil = jwtUtil;
         this.userRepository = userRepository;
     }
+
+    @GetMapping("/getAllAdvisor")
+    public ResponseEntity<List<ServiceAdvisorDto>> getAllServiceAdvisors()
+    {
+        List<User> allUsers = userService.findAllUsers();
+        List<User> serviceAdvisors = allUsers.stream()
+                .filter(user -> user.getRole() == Role.SERVICEADVISOR)
+                .collect(Collectors.toList());
+        List<ServiceAdvisorDto> serviceAdvisorDtos = serviceAdvisors.stream()
+                .map(user -> new ServiceAdvisorDto(user.getUId(), user.getName(), user.getEmail()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(serviceAdvisorDtos);
+    }
+
 
     @PostMapping("/signup")
     public ResponseEntity<?> add(@RequestBody SignupRequest signupRequest) {
