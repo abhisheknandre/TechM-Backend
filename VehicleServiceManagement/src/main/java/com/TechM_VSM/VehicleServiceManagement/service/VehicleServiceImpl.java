@@ -41,7 +41,6 @@ public class VehicleServiceImpl implements VehicleService{
     @Override
     public ResponseEntity<Vehicle> getvehicleById(int id) {
         Optional<Vehicle> vehicle = vehicleRepository.findById(id);
-
         return new ResponseEntity<>(vehicle.get(),HttpStatus.OK);
     }
 
