@@ -20,4 +20,7 @@ public class OwnerController {
         if(createdOwnerDto == null) return new ResponseEntity<>("Owner not created", HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(createdOwnerDto, HttpStatus.CREATED);
     }
+
+
+
 }

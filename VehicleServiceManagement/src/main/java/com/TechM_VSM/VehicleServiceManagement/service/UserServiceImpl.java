@@ -1,13 +1,19 @@
 package com.TechM_VSM.VehicleServiceManagement.service;
 
+import com.TechM_VSM.VehicleServiceManagement.dto.ServiceAdvisorDto;
 import com.TechM_VSM.VehicleServiceManagement.dto.SignupRequest;
 import com.TechM_VSM.VehicleServiceManagement.dto.UserDto;
 import com.TechM_VSM.VehicleServiceManagement.model.User;
 import com.TechM_VSM.VehicleServiceManagement.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
@@ -32,4 +38,11 @@ public class UserServiceImpl implements UserService{
     public boolean hasUserwithEmail(String email) {
         return userRepository.findFirstByEmail(email).isPresent();
     }
+
+    @Override
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
+
+
 }
