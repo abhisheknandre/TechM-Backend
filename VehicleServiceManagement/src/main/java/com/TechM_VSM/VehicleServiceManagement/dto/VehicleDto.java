@@ -5,10 +5,11 @@ import lombok.Data;
 @Data
 public class VehicleDto {
     private int id;
-    private int ownerId;
+    private String ownerName;
     private String name;
     private int year;
     private String licensePlate;
+    private String oEmail;
     private ServiceStatus serviceStatus;
 
 }

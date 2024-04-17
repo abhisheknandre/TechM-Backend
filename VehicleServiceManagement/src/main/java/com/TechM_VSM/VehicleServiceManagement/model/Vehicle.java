@@ -14,10 +14,11 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int ownerId;
+    private String ownerName;
     private String name;
     private int year;
     private String licensePlate;
     private ServiceStatus serviceStatus;
+    private String oEmail;
     private Date registrationDate;
 }

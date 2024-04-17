@@ -27,7 +27,7 @@ public class ItemController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addItem(@RequestBody ItemDto itemDto) {
-        ItemDto createdItemDto = itemService.saveVehicle(itemDto);
+        ItemDto createdItemDto = itemService.saveItem(itemDto);
         if(createdItemDto == null) return new ResponseEntity<>("Vehical not created", HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(createdItemDto, HttpStatus.CREATED);
     }
@@ -44,7 +44,7 @@ public class ItemController {
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteVehicle(@PathVariable int id) {
+    public ResponseEntity<Map<String, Boolean>> deleteItem(@PathVariable int id) {
         Map<String, Boolean> response = itemService.deleteItem(id);
         return ResponseEntity.ok(response);
     }

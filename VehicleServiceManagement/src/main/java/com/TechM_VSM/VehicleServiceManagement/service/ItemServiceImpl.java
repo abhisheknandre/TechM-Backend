@@ -20,7 +20,7 @@ public class ItemServiceImpl implements ItemService{
     @Autowired
     private ItemRepository itemRepository;
     @Override
-    public ItemDto saveVehicle(ItemDto itemDto) {
+    public ItemDto saveItem(ItemDto itemDto) {
         Item item = new Item();
         item.setItemName(itemDto.getItemName());
         item.setItemDescription(itemDto.getItemDescription());

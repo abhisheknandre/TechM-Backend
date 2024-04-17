@@ -20,11 +20,12 @@ public class VehicleServiceImpl implements VehicleService{
     public VehicleDto saveVehicle(VehicleDto vehicleDto) {
         Vehicle newvehical = new Vehicle();
 
-        newvehical.setOwnerId(vehicleDto.getOwnerId());
+        newvehical.setOwnerName(vehicleDto.getOwnerName());
         newvehical.setName(vehicleDto.getName());
         newvehical.setYear(vehicleDto.getYear());
         newvehical.setLicensePlate(vehicleDto.getLicensePlate());
         newvehical.setServiceStatus(vehicleDto.getServiceStatus() != null ? vehicleDto.getServiceStatus() : ServiceStatus.Pending);
+        newvehical.setOEmail(vehicleDto.getOEmail());
         newvehical.setRegistrationDate(new Date());
         Vehicle createdvehicle = vehicleRepository.save(newvehical);
         VehicleDto vehicleDto1 = new VehicleDto();
@@ -48,10 +49,11 @@ public class VehicleServiceImpl implements VehicleService{
     public Vehicle updateVehicle(int id, VehicleDto vehicleDetails) {
         Vehicle vehicle = vehicleRepository.findByid(id);
 
-        vehicle.setOwnerId(vehicleDetails.getOwnerId());
+        vehicle.setOwnerName(vehicleDetails.getOwnerName());
         vehicle.setName(vehicleDetails.getName());
         vehicle.setYear(vehicleDetails.getYear());
         vehicle.setLicensePlate(vehicleDetails.getLicensePlate());
+        vehicle.setOEmail(vehicle.getOEmail());
 
         Vehicle updatedVehicle = vehicleRepository.save(vehicle);
         return updatedVehicle;

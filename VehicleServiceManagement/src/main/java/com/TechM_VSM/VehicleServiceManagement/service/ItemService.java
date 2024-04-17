@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ItemService {
-    ItemDto saveVehicle(ItemDto itemDto);
+    ItemDto saveItem(ItemDto itemDto);
 
     ResponseEntity<List<Item>> getAll();
 
