@@ -6,14 +6,7 @@ import com.TechM_VSM.VehicleServiceManagement.model.Item;
 import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
 import com.TechM_VSM.VehicleServiceManagement.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class ItemServiceImpl implements ItemService{
@@ -30,26 +23,4 @@ public class ItemServiceImpl implements ItemService{
         itemDto1.setItemId(createdItem.getItemId());
         return itemDto1;
     }
-
-    @Override
-    public ResponseEntity<List<Item>> getAll() {
-        return new ResponseEntity<>(itemRepository.findAll(), HttpStatus.OK);
-    }
-
-    @Override
-    public Map<String, Boolean> deleteItem(int itemId) {
-        Item item = itemRepository.findByitemId(itemId);
-        itemRepository.delete(item);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
-    }
-
-    @Override
-    public ResponseEntity<Item> getitemById(int id) {
-        Optional<Item> item = itemRepository.findById(id);
-        return new ResponseEntity<>(item.get(),HttpStatus.OK);
-    }
-
-
 }

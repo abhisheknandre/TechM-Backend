@@ -41,6 +41,10 @@ public class AppConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request ->
                         request.requestMatchers("user/**").permitAll()
+                                .requestMatchers("owner/**").permitAll()
+                                .requestMatchers("item/**").permitAll()
+                                .requestMatchers("item/delete/**").permitAll()
+                                .requestMatchers("vehicle/**").permitAll()
                                 .requestMatchers("api/admin/**").hasAnyAuthority(Role.ADMIN.name()).
                                 requestMatchers("api/customer/**").hasAnyAuthority(Role.SERVICEADVISOR.name()).
                                 anyRequest().authenticated()).sessionManagement(manager ->
