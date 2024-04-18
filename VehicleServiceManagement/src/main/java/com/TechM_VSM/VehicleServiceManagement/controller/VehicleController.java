@@ -34,6 +34,13 @@ public class VehicleController {
         return vehicleService.getvehicleById(id);
     }
 
+    @GetMapping("getByServiceStatus/{serviceStatus}")
+    public ResponseEntity<List<Vehicle>> getByServiceStatus(@PathVariable String serviceStatus) {
+        List<Vehicle> vehicles = vehicleService.getVehiclesByServiceStatus(serviceStatus);
+        return new ResponseEntity<>(vehicles, HttpStatus.OK);
+    }
+
+
     @PutMapping("update/{id}")
     public ResponseEntity<?> updateVehicle(@PathVariable int id,@RequestBody VehicleDto vehicleDetails){
         Vehicle updateVehicleDto = vehicleService.updateVehicle(id, vehicleDetails);

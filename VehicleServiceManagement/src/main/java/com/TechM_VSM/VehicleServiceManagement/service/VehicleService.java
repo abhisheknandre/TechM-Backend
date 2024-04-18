@@ -20,4 +20,6 @@ public interface VehicleService {
     public Vehicle updateVehicle(int id, VehicleDto vehicleDetails);
 
     public Map<String, Boolean> deleteVehicle(int id);
+
+    List<Vehicle> getVehiclesByServiceStatus(String serviceStatus);
 }

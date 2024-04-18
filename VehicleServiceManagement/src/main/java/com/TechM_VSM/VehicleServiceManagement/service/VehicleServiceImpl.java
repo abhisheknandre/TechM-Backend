@@ -24,7 +24,7 @@ public class VehicleServiceImpl implements VehicleService{
         newvehical.setName(vehicleDto.getName());
         newvehical.setYear(vehicleDto.getYear());
         newvehical.setLicensePlate(vehicleDto.getLicensePlate());
-        newvehical.setServiceStatus(vehicleDto.getServiceStatus() != null ? vehicleDto.getServiceStatus() : ServiceStatus.Pending);
+        newvehical.setServiceStatus(vehicleDto.getServiceStatus() != null ? vehicleDto.getServiceStatus() : ServiceStatus.Scheduled);
         newvehical.setOEmail(vehicleDto.getOEmail());
         newvehical.setRegistrationDate(new Date());
         Vehicle createdvehicle = vehicleRepository.save(newvehical);
@@ -67,5 +67,14 @@ public class VehicleServiceImpl implements VehicleService{
         response.put("deleted", Boolean.TRUE);
         return response;
     }
+
+    @Override
+    public List<Vehicle> getVehiclesByServiceStatus(String serviceStatus) {
+        ServiceStatus serviceStatusEnum = ServiceStatus.valueOf(serviceStatus); // Convert String to enum
+        List<Vehicle> vehicles = vehicleRepository.findByServiceStatus(serviceStatusEnum);
+        return vehicles;
+    }
+
+
 
 }
