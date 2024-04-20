@@ -7,6 +7,8 @@ import com.TechM_VSM.VehicleServiceManagement.repository.UserRepository;
 import com.TechM_VSM.VehicleServiceManagement.security.JWTHelper;
 import com.TechM_VSM.VehicleServiceManagement.service.UserService;
 import com.TechM_VSM.VehicleServiceManagement.service.jwt.AuthService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,12 +25,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/user")
 @CrossOrigin
 @RequiredArgsConstructor
+@NoArgsConstructor(force = true)
 public class UserController {
 
-
+    @Autowired
     private UserService userService;
     private final AuthService authService;
-
     private final JWTHelper jwtUtil;
     private final UserRepository userRepository;
 
@@ -39,17 +41,19 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/getAllAdvisor")
-    public ResponseEntity<List<ServiceAdvisorDto>> getAllServiceAdvisors()
-    {
-        List<User> allUsers = userService.findAllUsers();
-        List<User> serviceAdvisors = allUsers.stream()
-                .filter(user -> user.getRole() == Role.SERVICEADVISOR)
+
+
+    @GetMapping("/getAllAdvisorEmails")
+    public ResponseEntity<List<UserDto>> getAllAdvisorEmails() {
+        List<String> emails = userService.getAdvisorEmails();
+        List<UserDto> userDtos = emails.stream()
+                .map(email -> {
+                    UserDto userDto = new UserDto();
+                    userDto.setEmail(email);
+                    return userDto;
+                })
                 .collect(Collectors.toList());
-        List<ServiceAdvisorDto> serviceAdvisorDtos = serviceAdvisors.stream()
-                .map(user -> new ServiceAdvisorDto(user.getUId(), user.getName(), user.getEmail()))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(serviceAdvisorDtos);
+        return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 
 

@@ -18,8 +18,8 @@ public class ItemController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addItem(@RequestBody ItemDto itemDto) {
-        ItemDto createdItemDto = itemService.saveVehicle(itemDto);
-        if(createdItemDto == null) return new ResponseEntity<>("Vehical not created", HttpStatus.BAD_REQUEST);
+        ItemDto createdItemDto = itemService.saveItem(itemDto);
+        if(createdItemDto == null) return new ResponseEntity<>("item not created", HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(createdItemDto, HttpStatus.CREATED);
     }
 }

@@ -18,7 +18,5 @@ public class Owner {
     private  String ONo;
     private  String oEmail;
 
-    @OneToMany(mappedBy = "ownerId")
-    private List<Vehicle> vehicles;
 
 }
