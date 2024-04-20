@@ -7,7 +7,6 @@ import com.TechM_VSM.VehicleServiceManagement.repository.UserRepository;
 import com.TechM_VSM.VehicleServiceManagement.security.JWTHelper;
 import com.TechM_VSM.VehicleServiceManagement.service.UserService;
 import com.TechM_VSM.VehicleServiceManagement.service.jwt.AuthService;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +30,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     private final AuthService authService;
+
     private final JWTHelper jwtUtil;
     private final UserRepository userRepository;
 
