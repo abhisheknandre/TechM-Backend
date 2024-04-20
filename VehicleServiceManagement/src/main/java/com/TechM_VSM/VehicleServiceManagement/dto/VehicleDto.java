@@ -10,6 +10,7 @@ public class VehicleDto {
     private int year;
     private String licensePlate;
     private String oEmail;
+    private String saEmail;
     private ServiceStatus serviceStatus;
 
 }

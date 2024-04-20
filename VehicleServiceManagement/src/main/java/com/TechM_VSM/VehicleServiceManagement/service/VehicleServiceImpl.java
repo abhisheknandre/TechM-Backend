@@ -49,12 +49,8 @@ public class VehicleServiceImpl implements VehicleService{
     public Vehicle updateVehicle(int id, VehicleDto vehicleDetails) {
         Vehicle vehicle = vehicleRepository.findByid(id);
 
-        vehicle.setOwnerName(vehicleDetails.getOwnerName());
-        vehicle.setName(vehicleDetails.getName());
-        vehicle.setYear(vehicleDetails.getYear());
-        vehicle.setLicensePlate(vehicleDetails.getLicensePlate());
-        String originalOEmail = vehicle.getOEmail();
-        vehicle.setOEmail(originalOEmail);
+        vehicle.setSaEmail(vehicleDetails.getSaEmail());
+        vehicle.setServiceStatus(vehicleDetails.getServiceStatus());
         Vehicle updatedVehicle = vehicleRepository.save(vehicle);
         return updatedVehicle;
     }

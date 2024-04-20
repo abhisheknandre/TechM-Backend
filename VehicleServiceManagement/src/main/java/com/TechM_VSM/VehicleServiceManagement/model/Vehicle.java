@@ -20,5 +20,6 @@ public class Vehicle {
     private String licensePlate;
     private ServiceStatus serviceStatus;
     private String oEmail;
+    private String saEmail;
     private Date registrationDate;
 }
