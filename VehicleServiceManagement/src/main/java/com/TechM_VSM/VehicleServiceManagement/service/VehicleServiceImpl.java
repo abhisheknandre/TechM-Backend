@@ -24,7 +24,7 @@ public class VehicleServiceImpl implements VehicleService{
         newvehical.setName(vehicleDto.getName());
         newvehical.setYear(vehicleDto.getYear());
         newvehical.setLicensePlate(vehicleDto.getLicensePlate());
-        newvehical.setServiceStatus(vehicleDto.getServiceStatus() != null ? vehicleDto.getServiceStatus() : ServiceStatus.Scheduled);
+        newvehical.setServiceStatus(vehicleDto.getServiceStatus() != null ? vehicleDto.getServiceStatus() : ServiceStatus.Pending);
         newvehical.setOEmail(vehicleDto.getOEmail());
         newvehical.setRegistrationDate(new Date());
         Vehicle createdvehicle = vehicleRepository.save(newvehical);
@@ -46,7 +46,7 @@ public class VehicleServiceImpl implements VehicleService{
     }
 
     @Override
-    public Vehicle updateVehicle(int id, VehicleDto vehicleDetails) {
+    public Vehicle updateStatus(int id, VehicleDto vehicleDetails) {
         Vehicle vehicle = vehicleRepository.findByid(id);
 
         vehicle.setSaEmail(vehicleDetails.getSaEmail());
@@ -76,6 +76,19 @@ public class VehicleServiceImpl implements VehicleService{
         return vehicleRepository.getVehicleListFromAdvisorAndServiceStatus(advisorEmail, serviceStatus);
     }
 
+    @Override
+    public Vehicle updateVehicle(int id, VehicleDto vehicleDetails) {
+        Vehicle vehicle = vehicleRepository.findByid(id);
+
+        vehicle.setName(vehicleDetails.getName());
+        vehicle.setOwnerName(vehicleDetails.getOwnerName());
+        vehicle.setOEmail(vehicleDetails.getOEmail());
+        vehicle.setLicensePlate(vehicleDetails.getLicensePlate());
+        vehicle.setYear(vehicleDetails.getYear());
+        Vehicle updatedVehicle = vehicleRepository.save(vehicle);
+        return updatedVehicle;
+
+    }
 
 
 }

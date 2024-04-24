@@ -17,11 +17,13 @@ public interface VehicleService {
     public ResponseEntity<Vehicle> getvehicleById(int id);
 
 
-    public Vehicle updateVehicle(int id, VehicleDto vehicleDetails);
+    public Vehicle updateStatus(int id, VehicleDto vehicleDetails);
 
     public Map<String, Boolean> deleteVehicle(int id);
 
     List<Vehicle> getVehiclesByServiceStatus(String serviceStatus);
 
     List<Vehicle> getByAdvisorAndStatus(String advisorEmail, String serviceStatus);
+
+    Vehicle updateVehicle(int id, VehicleDto vehicleDetails);
 }
