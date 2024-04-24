@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,9 +30,14 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
     private final AuthService authService;
 
+    @Autowired
     private final JWTHelper jwtUtil;
+
+    @Autowired
     private final UserRepository userRepository;
 
     public UserController(AuthService authService, UserService userService, UserRepository userRepository, JWTHelper jwtUtil, AuthenticationManager authenticationManager) {
@@ -80,49 +86,37 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
         String email = authenticationRequest.getEmail();
         String password = authenticationRequest.getPassword();
 
-
         Optional<User> optionalUser = userRepository.findFirstByEmail(email);
-        System.out.println(optionalUser.get().getPassword());
-
-        if (optionalUser.isPresent() && passwordMatches(optionalUser.get().getPassword(), password)) {
-            final UserDetails userDetails = authService.userDetailsService().loadUserByUsername(authenticationRequest.getEmail());
-            String jwt = jwtUtil.generateToken(userDetails);
-
-            AuthenticationResponse authenticationResponse = new AuthenticationResponse(
-                    jwt,
-                    optionalUser.get().getUId(),
-                    optionalUser.get().getRole(),
-                    optionalUser.get().getName(),
-                    optionalUser.get().getEmail()
-            );
-
-            return ResponseEntity.ok(authenticationResponse);
-
-        } else {
-            System.out.println("Invalid username or password !");
-            return new ResponseEntity("Invalid username or password !",HttpStatus.BAD_REQUEST);
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
         }
+
+        User user = optionalUser.get();
+        if (!passwordMatches(password, user.getPassword())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid password");
+        }
+
+        final UserDetails userDetails = authService.userDetailsService().loadUserByUsername(authenticationRequest.getEmail());
+        String jwt = jwtUtil.generateToken(userDetails);
+
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse(
+                jwt,
+                user.getUId(),
+                user.getRole(),
+                user.getName(),
+                user.getEmail()
+        );
+
+        return ResponseEntity.ok(authenticationResponse);
     }
 
-    private boolean passwordMatches(String string, String password) {
-        // Implement your logic to check if the provided password matches the stored password
-        // You might use a password encoder or other mechanism depending on your setup.
-        // For example, you can use Spring Security's PasswordEncoder.matches method.
-
-        // Assuming you have a password encoder bean in your configuration:
-        // return passwordEncoder.matches(password, user.getPassword());
-
-        // For demonstration purposes, a simple equality check is used:
-        boolean flag=false;
-        if(string.equals(password)) {
-            flag=true;
-            System.out.println("login success !");
-        };
-
-        return flag;
+    private boolean passwordMatches(String plainPassword, String hashedPassword) {
+        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+        return bcrypt.matches(plainPassword, hashedPassword);
     }
+
 }

@@ -22,4 +22,6 @@ public interface VehicleService {
     public Map<String, Boolean> deleteVehicle(int id);
 
     List<Vehicle> getVehiclesByServiceStatus(String serviceStatus);
+
+    List<Vehicle> getByAdvisorAndStatus(String advisorEmail, String serviceStatus);
 }
