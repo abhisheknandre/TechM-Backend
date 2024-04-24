@@ -17,12 +17,12 @@ public class AdvisorController {
     @Autowired
     private VehicleService vehicleService;
 
-    @GetMapping("/getByAdvisorAndStatus")
+    @GetMapping("/getByAdvisorAndStatus/{getemail}")
     public ResponseEntity<List<Vehicle>> getByAdvisorAndStatus(
-            @RequestParam("advisor_email") String advisorEmail,
-            @RequestParam("service_status") String serviceStatus) {
+            @PathVariable String getemail
+            ) {
 
-        List<Vehicle> resultList = vehicleService.getByAdvisorAndStatus(advisorEmail, serviceStatus);
+        List<Vehicle> resultList = vehicleService.getByAdvisorAndStatus(getemail);
 
         if (resultList.isEmpty()) {
             return ResponseEntity.noContent().build();

@@ -23,7 +23,7 @@ public interface VehicleService {
 
     List<Vehicle> getVehiclesByServiceStatus(String serviceStatus);
 
-    List<Vehicle> getByAdvisorAndStatus(String advisorEmail, String serviceStatus);
+    List<Vehicle> getByAdvisorAndStatus(String saEmail);
 
     Vehicle updateVehicle(int id, VehicleDto vehicleDetails);
 }

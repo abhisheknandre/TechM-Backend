@@ -72,8 +72,8 @@ public class VehicleServiceImpl implements VehicleService{
     }
 
     @Override
-    public List<Vehicle> getByAdvisorAndStatus(String advisorEmail, String serviceStatus) {
-        return vehicleRepository.getVehicleListFromAdvisorAndServiceStatus(advisorEmail, serviceStatus);
+    public List<Vehicle> getByAdvisorAndStatus(String advisorEmail) {
+        return vehicleRepository.findBySaEmail(advisorEmail);
     }
 
     @Override

@@ -17,6 +17,7 @@ public interface VehicleRepository extends JpaRepository<Vehicle,Integer> {
     List<Vehicle> findByServiceStatus(ServiceStatus serviceStatus);
 
     @Query("SELECT v FROM Vehicle v WHERE v.saEmail = ?1 AND v.serviceStatus = ?2")
-    List<Vehicle> getVehicleListFromAdvisorAndServiceStatus(String advisorEmail, String serviceStatus);
+    List<Vehicle> getVehicleListFromAdvisorAndServiceStatus(String sa_email, String service_status);
 
+    List<Vehicle> findBySaEmail(String saEmail);
 }
