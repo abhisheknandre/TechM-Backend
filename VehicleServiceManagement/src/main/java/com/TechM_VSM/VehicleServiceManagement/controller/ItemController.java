@@ -22,8 +22,7 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @Autowired
-    private ItemRepository itemRepository;
+
 
     @PostMapping("/add")
     public ResponseEntity<?> addItem(@RequestBody ItemDto itemDto) {
@@ -47,6 +46,13 @@ public class ItemController {
     public ResponseEntity<Map<String, Boolean>> deleteItem(@PathVariable int id) {
         Map<String, Boolean> response = itemService.deleteItem(id);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("update/{id}")
+    public ResponseEntity<?> updateItem(@PathVariable int id,@RequestBody ItemDto itemDto){
+        Item updateItemDto = itemService.updateItem(id, itemDto);
+        if(updateItemDto == null) return new ResponseEntity<>("Item not updated",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(updateItemDto, HttpStatus.CREATED);
     }
 
 

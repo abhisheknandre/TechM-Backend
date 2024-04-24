@@ -14,10 +14,8 @@ import lombok.RequiredArgsConstructor;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int itemId;
+    private int id;
     private  String itemName;
     private  String itemDescription;
     private  double itemCost;
-
-
 }

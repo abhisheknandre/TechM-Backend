@@ -27,7 +27,7 @@ public class ItemServiceImpl implements ItemService{
         item.setItemCost(itemDto.getItemCost());
         Item createdItem = itemRepository.save(item);
         ItemDto itemDto1 = new ItemDto();
-        itemDto1.setItemId(createdItem.getItemId());
+        itemDto1.setId(createdItem.getId());
         return itemDto1;
     }
 
@@ -37,8 +37,8 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public Map<String, Boolean> deleteItem(int itemId) {
-        Item item = itemRepository.findByitemId(itemId);
+    public Map<String, Boolean> deleteItem(int id) {
+        Item item = itemRepository.findByid(id);
         itemRepository.delete(item);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
@@ -49,6 +49,17 @@ public class ItemServiceImpl implements ItemService{
     public ResponseEntity<Item> getitemById(int id) {
         Optional<Item> item = itemRepository.findById(id);
         return new ResponseEntity<>(item.get(),HttpStatus.OK);
+    }
+
+    @Override
+    public Item updateItem(int id, ItemDto itemDto) {
+        Item item = itemRepository.findByid(id);
+
+        item.setItemName(itemDto.getItemName());
+        item.setItemDescription(itemDto.getItemDescription());
+        item.setItemCost(itemDto.getItemCost());
+        Item updatedItem = itemRepository.save(item);
+        return updatedItem;
     }
 
 

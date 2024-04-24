@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ItemDto {
-    private int itemId;
+    private int id;
     private  String itemName;
     private  String itemDescription;
     private  double itemCost;

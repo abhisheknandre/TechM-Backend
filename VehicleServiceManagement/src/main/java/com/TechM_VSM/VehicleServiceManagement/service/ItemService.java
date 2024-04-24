@@ -13,7 +13,9 @@ public interface ItemService {
     ResponseEntity<List<Item>> getAll();
 
 
-    Map<String, Boolean> deleteItem(int itemId);
+    Map<String, Boolean> deleteItem(int id);
 
     ResponseEntity<Item> getitemById(int id);
+
+    Item updateItem(int id, ItemDto itemDto);
 }
