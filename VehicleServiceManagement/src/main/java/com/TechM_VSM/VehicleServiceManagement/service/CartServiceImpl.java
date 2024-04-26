@@ -1,5 +1,7 @@
 package com.TechM_VSM.VehicleServiceManagement.service;
 
+import com.TechM_VSM.VehicleServiceManagement.dto.CartDto;
+import com.TechM_VSM.VehicleServiceManagement.dto.VehicleDto;
 import com.TechM_VSM.VehicleServiceManagement.model.CartItem;
 import com.TechM_VSM.VehicleServiceManagement.model.Item;
 import com.TechM_VSM.VehicleServiceManagement.repository.CartRepository;
@@ -16,16 +18,19 @@ public class CartServiceImpl implements CartService{
     @Autowired
     private CartRepository cartRepository;
 
+
     @Override
-    public List<CartItem> addItemToCart(List<Item> items, int quantity) {
-        List<CartItem> cartItems = new ArrayList<>();
-        for (Item item : items) {
-            CartItem cartItem = new CartItem(item, quantity);
+    public CartDto saveItem(CartDto cartDto) {
+        CartItem cartItem = new CartItem();
 
-            cartItem = cartRepository.save(cartItem);
+        cartItem.setItemName(cartDto.getItemName());
+        cartItem.setQuantity(cartDto.getQuantity());
+        cartItem.setItemCost(cartDto.getItemCost());
+        cartItem.setVId(cartDto.getVId());
 
-            cartItems.add(cartItem);
-        }
-        return cartItems;
+        CartItem createdCart = cartRepository.save(cartItem);
+        CartDto cartDto1 = new CartDto();
+
+        return cartDto1;
     }
 }

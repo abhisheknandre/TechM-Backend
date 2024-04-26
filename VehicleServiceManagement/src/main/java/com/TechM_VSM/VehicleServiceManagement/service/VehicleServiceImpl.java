@@ -29,7 +29,6 @@ public class VehicleServiceImpl implements VehicleService{
         newvehical.setRegistrationDate(new Date());
         Vehicle createdvehicle = vehicleRepository.save(newvehical);
         VehicleDto vehicleDto1 = new VehicleDto();
-        vehicleDto1.setId(createdvehicle.getId());
         return vehicleDto1;
     }
 
@@ -88,6 +87,15 @@ public class VehicleServiceImpl implements VehicleService{
         Vehicle updatedVehicle = vehicleRepository.save(vehicle);
         return updatedVehicle;
 
+    }
+
+    @Override
+    public Vehicle updateStatus1(int id, VehicleDto vehicleDetails) {
+        Vehicle vehicle = vehicleRepository.findByid(id);
+
+        vehicle.setServiceStatus(vehicleDetails.getServiceStatus());
+        Vehicle updatedVehicle = vehicleRepository.save(vehicle);
+        return updatedVehicle;
     }
 
 

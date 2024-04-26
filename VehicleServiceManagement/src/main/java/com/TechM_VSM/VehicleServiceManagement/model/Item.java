@@ -16,9 +16,7 @@ public class Item {
     private  String itemDescription;
     private  double itemCost;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "s_id")
-    private ServiceRecord serviceRecord;
+
 
 
 }

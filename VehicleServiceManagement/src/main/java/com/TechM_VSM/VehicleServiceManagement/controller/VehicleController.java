@@ -48,6 +48,13 @@ public class VehicleController {
         return new ResponseEntity<>(updateVehicleDto, HttpStatus.CREATED);
     }
 
+    @PutMapping("status/bystatus/{id}")
+    public ResponseEntity<?> updateStatusAdv(@PathVariable int id,@RequestBody VehicleDto vehicleDetails){
+        Vehicle updateVehicleDto = vehicleService.updateStatus1(id, vehicleDetails);
+        if(updateVehicleDto == null) return new ResponseEntity<>("Vehical not updated",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(updateVehicleDto, HttpStatus.CREATED);
+    }
+
     @PutMapping("update/{id}")
     public ResponseEntity<?> updateVehicle(@PathVariable int id,@RequestBody VehicleDto vehicleDetails){
         Vehicle updateVehicleDto = vehicleService.updateVehicle(id, vehicleDetails);
