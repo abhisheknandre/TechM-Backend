@@ -7,10 +7,13 @@ import com.TechM_VSM.VehicleServiceManagement.model.Item;
 import com.TechM_VSM.VehicleServiceManagement.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -32,5 +35,11 @@ public class CartServiceImpl implements CartService{
         CartDto cartDto1 = new CartDto();
 
         return cartDto1;
+    }
+
+    @Override
+    public ResponseEntity<List<CartItem>> getCartByvId(int vId) {
+        Optional<List<CartItem>> cartItems =cartRepository.findByvId(vId);
+        return new ResponseEntity<>(cartRepository.findByvId(vId).get(), HttpStatus.OK);
     }
 }
