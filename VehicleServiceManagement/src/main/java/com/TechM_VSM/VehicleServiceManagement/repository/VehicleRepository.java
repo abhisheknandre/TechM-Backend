@@ -20,4 +20,8 @@ public interface VehicleRepository extends JpaRepository<Vehicle,Integer> {
     List<Vehicle> getVehicleListFromAdvisorAndServiceStatus(String sa_email, String service_status);
 
     List<Vehicle> findBySaEmail(String saEmail);
+
+//    List<Vehicle> findByAdvisorEmailAndStatus(String getemail);
+
+//    List<Vehicle> findByAdvisorEmailAndStatus(String getemail, String status);
 }

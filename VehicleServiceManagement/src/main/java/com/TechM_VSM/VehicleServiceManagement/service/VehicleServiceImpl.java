@@ -70,10 +70,7 @@ public class VehicleServiceImpl implements VehicleService{
         return vehicles;
     }
 
-    @Override
-    public List<Vehicle> getByAdvisorAndStatus(String advisorEmail) {
-        return vehicleRepository.findBySaEmail(advisorEmail);
-    }
+
 
     @Override
     public Vehicle updateVehicle(int id, VehicleDto vehicleDetails) {
@@ -96,6 +93,14 @@ public class VehicleServiceImpl implements VehicleService{
         vehicle.setServiceStatus(vehicleDetails.getServiceStatus());
         Vehicle updatedVehicle = vehicleRepository.save(vehicle);
         return updatedVehicle;
+    }
+
+    @Override
+    public List<Vehicle> getByAdvisorAndStatus(String getemail) {
+        List<Vehicle> resultList = vehicleRepository.findBySaEmail(getemail);
+
+
+        return resultList;
     }
 
 
