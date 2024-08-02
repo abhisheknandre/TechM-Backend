@@ -3,18 +3,29 @@ package com.TechM_VSM.VehicleServiceManagement.service;
 import com.TechM_VSM.VehicleServiceManagement.dto.VehicleDto;
 import com.TechM_VSM.VehicleServiceManagement.model.ServiceStatus;
 import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import com.TechM_VSM.VehicleServiceManagement.repository.VehicleRepository;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
-public class VehicleServiceImpl implements VehicleService{
+public class
+VehicleServiceImpl implements VehicleService{
     @Autowired
     private VehicleRepository vehicleRepository;
+
+    @Scheduled(cron = "0 0 0 * * *") // This will run once a day at midnight
+    @Transactional
+    public void updateStatus() {
+        LocalDate twoMonthsAgo = LocalDate.now().minusMonths(2);
+        vehicleRepository.updateStatusAndDate(twoMonthsAgo);
+    }
 
     @Override
     public VehicleDto saveVehicle(VehicleDto vehicleDto) {
@@ -27,6 +38,7 @@ public class VehicleServiceImpl implements VehicleService{
         newvehical.setServiceStatus(vehicleDto.getServiceStatus() != null ? vehicleDto.getServiceStatus() : ServiceStatus.Pending);
         newvehical.setOEmail(vehicleDto.getOEmail());
         newvehical.setRegistrationDate(new Date());
+        newvehical.setServiceDonedate(null);
         Vehicle createdvehicle = vehicleRepository.save(newvehical);
         VehicleDto vehicleDto1 = new VehicleDto();
         return vehicleDto1;
@@ -91,6 +103,16 @@ public class VehicleServiceImpl implements VehicleService{
         Vehicle vehicle = vehicleRepository.findByid(id);
 
         vehicle.setServiceStatus(vehicleDetails.getServiceStatus());
+        System.out.println("h1llllwkd");
+        System.out.println();
+        String status = String.valueOf(vehicleDetails.getServiceStatus());
+        System.out.println("Service Status: " + status);
+        if(status.equals("Completed")){
+            System.out.println("Service Status Inside If: " + status);
+            System.out.println(LocalDate.now());
+            vehicle.setServiceDonedate(LocalDate.now());
+        }
+
         Vehicle updatedVehicle = vehicleRepository.save(vehicle);
         return updatedVehicle;
     }

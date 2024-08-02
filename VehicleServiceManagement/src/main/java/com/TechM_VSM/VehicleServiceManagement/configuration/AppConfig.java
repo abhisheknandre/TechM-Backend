@@ -42,6 +42,7 @@ public class AppConfig {
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request ->
                         request.requestMatchers("user/**").permitAll()
                                 .requestMatchers("owner/**").permitAll()
+                                .requestMatchers("advisor/**").permitAll()
                                 .requestMatchers("item/**").permitAll()
                                 .requestMatchers("item/delete/**").permitAll()
                                 .requestMatchers("vehicle/**").permitAll()

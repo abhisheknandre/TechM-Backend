@@ -4,9 +4,11 @@ import com.TechM_VSM.VehicleServiceManagement.dto.VehicleDto;
 import com.TechM_VSM.VehicleServiceManagement.model.ServiceStatus;
 import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -20,6 +22,16 @@ public interface VehicleRepository extends JpaRepository<Vehicle,Integer> {
     List<Vehicle> getVehicleListFromAdvisorAndServiceStatus(String sa_email, String service_status);
 
     List<Vehicle> findBySaEmail(String saEmail);
+
+
+
+    @Modifying
+    @Query("UPDATE Vehicle u SET u.serviceStatus = 0, u.ServiceDonedate = CURRENT_DATE WHERE u.serviceStatus = 2 AND u.ServiceDonedate <= :twoMonthsAgo")
+    void updateStatusAndDate(LocalDate twoMonthsAgo);
+
+//    @Modifying
+//    @Query("UPDATE User u SET u.status = :status, u.servicedoneDate = :servicedoneDate WHERE u.uId = :uId")
+//    void updateStatusAndDateById(String status, LocalDate servicedoneDate, int uId);
 
 //    List<Vehicle> findByAdvisorEmailAndStatus(String getemail);
 
