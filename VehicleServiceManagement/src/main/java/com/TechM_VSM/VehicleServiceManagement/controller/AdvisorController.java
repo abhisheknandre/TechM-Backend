@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/advisor")
-@CrossOrigin
+@CrossOrigin()
 public class AdvisorController {
 
     @Autowired

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/owner")
-@CrossOrigin
+@CrossOrigin()
 public class OwnerController {
     @Autowired
     private OwnerService ownerService;

@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin
+@CrossOrigin()
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class UserController {
