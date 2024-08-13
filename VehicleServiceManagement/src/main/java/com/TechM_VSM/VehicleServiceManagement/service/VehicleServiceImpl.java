@@ -4,8 +4,6 @@ import com.TechM_VSM.VehicleServiceManagement.dto.VehicleDto;
 import com.TechM_VSM.VehicleServiceManagement.model.ServiceStatus;
 import com.TechM_VSM.VehicleServiceManagement.model.Vehicle;
 import jakarta.transaction.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,54 +13,50 @@ import org.springframework.stereotype.Service;
 import com.TechM_VSM.VehicleServiceManagement.repository.VehicleRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
 @EnableScheduling
-public class VehicleServiceImpl implements VehicleService {
-    private static final Logger logger = LoggerFactory.getLogger(VehicleServiceImpl.class);
-
+public class
+VehicleServiceImpl implements VehicleService{
     @Autowired
     private VehicleRepository vehicleRepository;
 
-    @Scheduled(cron = "0 0 0 * * *") // This will run once a day at 11:35 PM
+    @Scheduled(cron = "0 00 00 * * *") // This will run once a day at midnight
     @Transactional
     public void updateStatus() {
-        logger.info("Starting updateStatus at {}", LocalDateTime.now());
 
         LocalDate twoMonthsAgo = LocalDate.now().minusMonths(2);
         vehicleRepository.updateStatusAndDate(twoMonthsAgo);
-
-        logger.info("Completed updateStatus at {}", LocalDateTime.now());
     }
 
     @Override
     public VehicleDto saveVehicle(VehicleDto vehicleDto) {
-        Vehicle newVehicle = new Vehicle();
+        Vehicle newvehical = new Vehicle();
 
-        newVehicle.setOwnerName(vehicleDto.getOwnerName());
-        newVehicle.setName(vehicleDto.getName());
-        newVehicle.setYear(vehicleDto.getYear());
-        newVehicle.setLicensePlate(vehicleDto.getLicensePlate());
-        newVehicle.setServiceStatus(vehicleDto.getServiceStatus() != null ? vehicleDto.getServiceStatus() : ServiceStatus.Pending);
-        newVehicle.setOEmail(vehicleDto.getOEmail());
-        newVehicle.setRegistrationDate(new Date());
-        newVehicle.setServiceDonedate(null);
-        Vehicle createdVehicle = vehicleRepository.save(newVehicle);
+        newvehical.setOwnerName(vehicleDto.getOwnerName());
+        newvehical.setName(vehicleDto.getName());
+        newvehical.setYear(vehicleDto.getYear());
+        newvehical.setLicensePlate(vehicleDto.getLicensePlate());
+        newvehical.setServiceStatus(vehicleDto.getServiceStatus() != null ? vehicleDto.getServiceStatus() : ServiceStatus.Pending);
+        newvehical.setOEmail(vehicleDto.getOEmail());
+        newvehical.setRegistrationDate(new Date());
+        newvehical.setServiceDonedate(null);
+        Vehicle createdvehicle = vehicleRepository.save(newvehical);
         VehicleDto vehicleDto1 = new VehicleDto();
         return vehicleDto1;
     }
 
+
     @Override
     public ResponseEntity<List<Vehicle>> getAllVehical() {
-        return new ResponseEntity<>(vehicleRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(vehicleRepository.findAll(),HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Vehicle> getvehicleById(int id) {
         Optional<Vehicle> vehicle = vehicleRepository.findById(id);
-        return new ResponseEntity<>(vehicle.get(), HttpStatus.OK);
+        return new ResponseEntity<>(vehicle.get(),HttpStatus.OK);
     }
 
     @Override
@@ -91,6 +85,8 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicles;
     }
 
+
+
     @Override
     public Vehicle updateVehicle(int id, VehicleDto vehicleDetails) {
         Vehicle vehicle = vehicleRepository.findByid(id);
@@ -102,6 +98,7 @@ public class VehicleServiceImpl implements VehicleService {
         vehicle.setYear(vehicleDetails.getYear());
         Vehicle updatedVehicle = vehicleRepository.save(vehicle);
         return updatedVehicle;
+
     }
 
     @Override
@@ -113,7 +110,7 @@ public class VehicleServiceImpl implements VehicleService {
         System.out.println();
         String status = String.valueOf(vehicleDetails.getServiceStatus());
         System.out.println("Service Status: " + status);
-        if (status.equals("Completed")) {
+        if(status.equals("Completed")){
             System.out.println("Service Status Inside If: " + status);
             System.out.println(LocalDate.now());
             vehicle.setServiceDonedate(LocalDate.now());
@@ -126,6 +123,10 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<Vehicle> getByAdvisorAndStatus(String getemail) {
         List<Vehicle> resultList = vehicleRepository.findBySaEmail(getemail);
+
+
         return resultList;
     }
+
+
 }

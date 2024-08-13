@@ -24,6 +24,5 @@ public class Vehicle {
     private String oEmail;
     private String saEmail;
     private Date registrationDate;
-
     private LocalDate ServiceDonedate;
 }

@@ -5,7 +5,8 @@ import lombok.Data;
 public enum ServiceStatus {
     Pending,
     Scheduled,
-    Completed;
+    Completed,
+    Due;
 
 
 }
